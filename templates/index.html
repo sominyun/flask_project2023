@@ -8,11 +8,28 @@
 <script src="{{ url_for('static', filename='main.js') }}" defer></script>
 </head>
 <body>
+    <style>
+        * {box-sizing: border-box; } <!--border기준으로 박스크기 정함-->
+        body{margin:0;}
+        /*sytle the header*/
+        .navbar{background-color: #333; }
+        a{float:left; display: block; color:#f2f2f2;text-align:center;
+        padding:18px 16px;text-decoration: none; }
+        .navbar__menu {list-style-type:none; overflow: hidden;} /*콘텐츠길면가림*/
+        .navbar__menu a{float:left;}
+    /*마우스 위에 올릴 때*/
+    .navbar__menu a:hover{background-color: #ddd;color:black;}
+    /*viewport 가 600 pixels wide 보다 작으면 컬럼들을 위아래로 배치*/
+    @media screen and (max-width:600px){
+    .column.side, .column.middle{width:100%}
+    }
+    </style>
 <nav class="navbar">
 <div class="navbar__logo">
 <a href="">EwhaMarket</a>
 </div>
 <ul class="navbar__menu">
+<li><a href="/login">login</a></li>
 <li><a href="/list">List</a></li>
 <li><a href="/review">Review</a></li>
 <li><a href="/reg_items">Register Items</a></li>
