@@ -1,0 +1,79 @@
+{% extends "index.html" %}
+{% block section %}
+{% if total > 0 %}
+<p>
+ 현재까지 {{total}}개 리뷰 등록됨
+</p>
+<table>
+ <tr>
+ {% for key, value in row1 %}
+ <td>제목: {{value.title}}</td>
+ {% endfor %}
+ </tr>
+ <tr>
+ {% for key, value in row1 %}
+ <td onclick="location.href='/view_review_detail/{{key}}/';" style="cursor:pointer;">
+ <img src="static/images/{{value.img_path}}", width=240, height=200></td>
+ {% endfor %}
+ </tr>
+ <tr>
+ {% for key, value in row2 %}
+ <td>제목: {{value.title}}</td>
+ {% endfor %}
+</tr>
+<tr>
+{% for key, value in row2 %}
+<td onclick="location.href='/view_review_detail/{{key}}/';" style="cursor:pointer;">
+<img src="static/images/{{value.img_path}}", width=240, height=200></td>
+{% endfor %}
+</tr>
+</table>
+<!-- 페이지네이션을 위한 코드 시작 -->
+<div class="page-wrap">
+<div class="page-nation">
+<ul>
+<li>
+{% for i in range(page_count)%}
+<a href="{{url_for('view_review', page=i)}}" color="black">{{i}}</a>
+{% endfor %} </li>
+</ul>
+</div>
+</div>
+<style>
+    .page-nation li{
+     list-style: none;
+    }
+    .page-wrap{
+     text-align: center;
+     font-size: 0;
+    }
+    .page-nation{
+     text-align: center;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin-top: 20px;
+    }
+    .page-nation a{
+     display: block;
+     margin: 0 3px;
+     padding: 3px;
+     float: left;
+     border: 1px solid #e6e6e6;
+     width: 28px;
+     height: 28px;
+     line-height: 28px;
+     text-align: center;
+     background-color: #fff;
+     font-size: 13px;
+     color: black;
+     text-decoration: none;
+     font-weight:bold;
+    }
+</style>
+{% else %}
+<p>
+등록된 리뷰가 없습니다.
+</p>
+{% endif %}
+{% endblock section %}

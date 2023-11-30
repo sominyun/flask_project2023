@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block section %}
+<p>
+    review title is {{data.title}}
+    and rate is {{data.reviewStar}} points out of 5 points
+    </p>
+    <img src="{{img_path}}"/>
+    <p>
+    {{data.reviewContents}}
+    </p>
+{% endblock section %}
