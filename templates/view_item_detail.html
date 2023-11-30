@@ -1,0 +1,80 @@
+{% extends "index.html" %}
+{% block section %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-xxx" crossorigin="anonymous" />    
+  </head>
+    <p>
+    item name is <b>{{name}}</b> and address is {{data.addr}}
+    </p>
+    <p>
+    item tel. is {{data.phone}} and category is {{data.category}}
+    </p>
+    <p>
+    For payment, the credit card is 
+    {% if data['card'] == "Y" %}
+    accepted!
+    {% endif %}
+    {% if data['card'] == "N" %}
+    NOT accepted!
+    {% endif %}
+    </p>
+    <img src="/static/images/{{data.img_path}}", width=140, height=200>
+    <button onclick="location.href='/reg_review_init/{{name}}/';">리뷰등록</button>
+    <img src="/static/images/좋아요.svg" class="heart" id="heart",width=50, height=50></i>
+<script>
+function showHeart() {
+    $.ajax({
+    type: 'GET',
+    url: '/show_heart/{{name}}/',
+    data: {},
+    success: function (response) 
+        {
+        let my_heart = response['my_heart'];
+        if (my_heart['interested'] == 'Y')
+            {
+            $("#heart").attr("style","filter:invert(14%) sepia(87%) saturate(4449%) hue-rotate(355deg) brightness(109%) contrast(124%)");
+            $("#heart").attr("onclick","unlike()");
+            }
+        else
+            {
+            $("#heart").attr("style","filter:invert(51%) sepia(3%) saturate(14%) hue-rotate(16deg) brightness(97%) contrast(86%)");
+            $("#heart").attr("onclick","like()");
+            
+            }
+            //alert("showheart!")
+        }
+    }); 
+}
+ function like() {
+$.ajax({
+ type: 'POST',
+ url: '/like/{{name}}/',
+ data: {
+ interested : "Y"
+ },
+ success: function (response) {
+ alert(response['msg']);
+ window.location.reload()
+ }
+ });
+ }
+ function unlike() {
+ $.ajax({
+ type: 'POST',
+ url: '/unlike/{{name}}/',
+ data: {
+ interested : "N"
+ },
+ success: function (response) {
+ alert(response['msg']);
+ window.location.reload()
+ }
+ });
+ }
+ $(document).ready(function () {
+ showHeart();
+ });
+</script>
+{% endblock section %}
